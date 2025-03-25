@@ -15,7 +15,7 @@ def load_image():
         return None
 
 
-st.title('Распознай японский текст с изображения!')
+st.title('Распознай английский текст с изображения!')
 img = load_image()
 
 result = st.button('Распознать изображение')
