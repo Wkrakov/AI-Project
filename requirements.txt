@@ -1,3 +1,4 @@
+streamlit
 gradio==3.50.2
 datasets==2.16.1
 huggingface-hub==0.22.2
