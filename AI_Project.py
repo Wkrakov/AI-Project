@@ -20,7 +20,7 @@ img = load_image()
 
 result = st.button('Распознать изображение')
 if result:
-    captioner = pipeline("Nymbo/OCR-image-to-text")
+    captioner = pipeline("image-to-text", model="YaelSch/OCR-image-to-text-m")
     text = captioner(img)
     st.write('**Результаты распознавания:**')
     st.write(text[0]["generated_text"])
