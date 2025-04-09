@@ -3,7 +3,7 @@ import streamlit as st
 
 from transformers import pipeline
 from PIL import Image
-
+pip install --upgrade transformers
 def load_image():
     uploaded_file = st.file_uploader(label='Выберите изображение для распознавания')
     if uploaded_file is not None:
