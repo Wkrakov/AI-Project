@@ -1,3 +1,14 @@
 streamlit
+Pillow
+paddleocr
 transformers
-torchvision
+keras_ocr
+easyocr
+opencv-python
+numpy
+pandas
+huggingface_hub
+scipy
+gradio
+tensorflow
+keras
