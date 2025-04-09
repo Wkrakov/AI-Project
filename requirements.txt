@@ -1,4 +1,7 @@
-streamlit
-transformers
-Pillow
-torch
+streamlit==1.26.0
+transformers==4.33.0
+Pillow==10.0.1
+torch==2.0.1
+torchvision==0.15.2
+torchaudio==2.0.2
+requests==2.31.0
