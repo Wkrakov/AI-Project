@@ -1,9 +1,4 @@
 
-
-pip install --upgrade paddlepaddle paddleocr
-
-paddleocr --lang en
-
 import io
 import streamlit as st
 from PIL import Image
