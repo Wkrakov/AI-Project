@@ -1,8 +1,10 @@
 import io
 import streamlit as st
-
-from transformers import pipeline
 from PIL import Image
+from paddleocr import PaddleOCR
+
+# Инициализация PaddleOCR
+ocr = PaddleOCR(use_angle_cls=True, lang='en')  # need to run only once to download and load model
 
 
 def load_image():
@@ -19,8 +21,16 @@ st.title('Распознай английский текст с изображе
 img = load_image()
 
 result = st.button('Распознать изображение')
-if result:
-    captioner = pipeline("image-to-text", model="YaelSch/OCR-image-to-text-m")
-    text = captioner(img)
+if result and img is not None:
+    # Распознавание текста с использованием PaddleOCR
+    result = ocr.ocr(img, cls=True)
+    text = ""
+    for idx in range(len(result)):
+        res = result[idx]
+        for line in res:
+            text += line[1][0] + " "
+
     st.write('Результаты распознавания:')
-    st.write(text[0]["generated_text"])
+    st.write(text)
+elif result:
+    st.write('Пожалуйста, загрузите изображение.')
