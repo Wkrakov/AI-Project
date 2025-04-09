@@ -1,3 +1,5 @@
+pip install -r requirements.txt
+
 import io
 import streamlit as st
 from PIL import Image
@@ -17,20 +19,24 @@ def load_image():
         return None
 
 
-st.title('Распознай английский текст с изображения!')
-img = load_image()
-
-result = st.button('Распознать изображение')
-if result and img is not None:
+def recognize_text(image):
     # Распознавание текста с использованием PaddleOCR
-    result = ocr.ocr(img, cls=True)
+    result = ocr.ocr(image, cls=True)
     text = ""
     for idx in range(len(result)):
         res = result[idx]
         for line in res:
             text += line[1][0] + " "
+    return text
 
+
+st.title('Распознай английский текст с изображения!')
+img = load_image()
+
+result = st.button('Распознать изображение')
+if result and img is not None:
+    recognized_text = recognize_text(img)
     st.write('Результаты распознавания:')
-    st.write(text)
+    st.write(recognized_text)
 elif result:
     st.write('Пожалуйста, загрузите изображение.')
