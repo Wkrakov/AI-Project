@@ -1,4 +1,3 @@
-
 import io
 import streamlit as st
 from transformers import pipeline
@@ -24,6 +23,8 @@ if img is not None:
             text = captioner(img)
             st.write('Результаты распознавания:')
             st.write(text[0]["generated_text"])
+        except ImportError as e:
+            st.error(f"Ошибка импорта: {e}")
         except OSError as e:
             st.error(f"Ошибка загрузки модели: {e}")
         except Exception as e:
