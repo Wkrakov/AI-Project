@@ -1,9 +1,8 @@
+pip install --upgrade transformers
 import io
 import streamlit as st
-
 from transformers import pipeline
 from PIL import Image
-
 
 def load_image():
     uploaded_file = st.file_uploader(label='Выберите изображение для распознавания')
@@ -14,13 +13,18 @@ def load_image():
     else:
         return None
 
-
 st.title('Распознай английский текст с изображения!')
 img = load_image()
 
-result = st.button('Распознать изображение')
-if result:
-    captioner = pipeline("image-to-text", model="YaelSch/OCR-image-to-text-m")
-    text = captioner(img)
-    st.write('Результаты распознавания:')
-    st.write(text[0]["generated_text"])
+if img is not None:
+    result = st.button('Распознать изображение')
+    if result:
+        try:
+            captioner = pipeline("image-to-text", model="YaelSch/OCR-image-to-text-m")
+            text = captioner(img)
+            st.write('Результаты распознавания:')
+            st.write(text[0]["generated_text"])
+        except OSError as e:
+            st.error(f"Ошибка загрузки модели: {e}")
+        except Exception as e:
+            st.error(f"Произошла ошибка: {e}")
