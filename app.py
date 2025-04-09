@@ -1,9 +1,7 @@
-import io
 import streamlit as st
-
-from transformers import pipeline
+import easyocr
 from PIL import Image
-
+import io
 
 def load_image():
     uploaded_file = st.file_uploader(label='Выберите изображение для распознавания')
@@ -14,13 +12,16 @@ def load_image():
     else:
         return None
 
-
 st.title('Распознай английский текст с изображения!')
 img = load_image()
 
 result = st.button('Распознать изображение')
 if result:
-    captioner = pipeline("image-to-text", model="YaelSch/OCR-image-to-text-m")
-    text = captioner(img)
-    st.write('Результаты распознавания:')
-    st.write(text[0]["generated_text"])
+    if img is not None:
+        reader = easyocr.Reader(['en'])  # Создаем объект для распознавания текста на английском
+        result = reader.readtext(np.array(img))  # Преобразуем PIL Image в numpy array
+        text = ' '.join([item[1] for item in result])  # Извлекаем текст из результатов
+        st.write('Результаты распознавания:')
+        st.write(text)
+    else:
+        st.write("Пожалуйста, загрузите изображение.")
